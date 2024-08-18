@@ -2,18 +2,27 @@
 #define NNODE_H
 
 class List{
-    int size = 0;
-    Node* start;
-    Node* newNode = nullptr;
+    private:
 
-    void NewNode();
-    void InsertNode();
+        int size = 0;
+        Node* start;
+    public:
+        List();
+        ~List();
+        int getsize();
+        void InsertNode(int value);
+        void InsertOrdened(int value);
+        void showList();
 };
 
 class Node{
+    friend class List;
+    private:
+        int data;
+        Node* next;
     public:
-    int data;
-    Node* next;
+        Node(int value);
+        ~Node();
 };
 
 
