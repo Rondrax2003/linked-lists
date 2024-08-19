@@ -23,7 +23,7 @@ void List::InsertNode(int value){
 
     Node* newNode = new Node(value);
 
-    if(start == nullptr){
+    if(this->start == nullptr){
         this->start = newNode;
         size++;
         cout<< newNode->data <<endl;
@@ -36,8 +36,8 @@ void List::InsertNode(int value){
 }
 
 void List::InsertOrdened(int value){
-    Node* current = this->start;
-    if(start == nullptr){
+    Node* current = start;
+    if(this->start == nullptr){
         InsertNode(value);
     }else if(start->data > value){
         InsertNode(value);
@@ -57,6 +57,7 @@ void List::InsertOrdened(int value){
 
 int List::getsize(){
     cout<< this->size<<endl;
+    return 0;
 }
 /*
 void List::showList(){

@@ -4,10 +4,10 @@ using namespace std;
 
 int main(){
     List Phone;
-    Phone.InsertOrdened(45);
+    Phone.InsertOrdened(100);
     Phone.InsertOrdened(50);
     Phone.InsertOrdened(27);
-    Phone.InsertOrdened(100);
+    Phone.InsertOrdened(45);
     Phone.getsize();
     Phone.~List();
 

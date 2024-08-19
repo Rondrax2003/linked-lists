@@ -1,7 +1,17 @@
 #ifndef NODE_H
-#define NNODE_H
+#define NODE_H
+
+class Node{
+    friend class List;
+    private:
+        int data;
+        Node* next;
+    public:
+        Node(int value);
+};
 
 class List{
+    friend class Node;
     private:
 
         int size = 0;
@@ -15,15 +25,7 @@ class List{
         void showList();
 };
 
-class Node{
-    friend class List;
-    private:
-        int data;
-        Node* next;
-    public:
-        Node(int value);
-        ~Node();
-};
+
 
 
 #endif

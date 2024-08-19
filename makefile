@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 BANDERAS = -std=c++11 -Wall -g
-SALIDA = asistente
+SALIDA = Node
 
 all: ejemplo
 
