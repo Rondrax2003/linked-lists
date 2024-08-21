@@ -9,6 +9,7 @@ Node::Node(int value){
 
 List::List(){
     this->start = nullptr;
+    this->end = nullptr;
     this->size = 0;
 }
 List::~List(){
@@ -20,11 +21,11 @@ List::~List(){
     }
 }
 void List::InsertNode(int value){
-
     Node* newNode = new Node(value);
 
     if(this->start == nullptr){
         this->start = newNode;
+        this->end = newNode;
         size++;
         cout<< newNode->data <<endl;
     }else{
@@ -40,15 +41,17 @@ void List::InsertOrdened(int value){
     if(this->start == nullptr){
         InsertNode(value);
     }else if(start->data > value){
-        InsertNode(value);
-    }else {
         Node* newNode = new Node(value);
         if(newNode->data < current->next->data){
             newNode->next = current->next;
             current->next = newNode;
-            this->size++;
             current = nullptr;
             delete current;
+            cout<< newNode->data <<endl;
+            this->size++;
+        }else if(end->next == newNode){
+            end = newNode;
+            size++;
             cout<< newNode->data <<endl;
         }
     }
@@ -56,8 +59,40 @@ void List::InsertOrdened(int value){
 }
 
 int List::getsize(){
-    cout<< this->size<<endl;
-    return 0;
+    return this->size;
+
+}
+
+void List::deleteNode(int value){
+    if(this->start == nullptr){
+        cout<<"void list"<<endl;
+    }
+    else{
+        Node* current;
+        for(current = this->start ;current->next != nullptr;current=current->next){
+            if(current == this->start){
+                this->start->next= this->start;
+                current->next = nullptr;
+                delete(current);
+                size--;
+            }else if(current->next == this->end){
+                this->end = current;
+                current = current->next;
+                current->next = nullptr;
+                delete (current);
+            }else if(current->data == value){
+                Node* tmp;
+                for(tmp=this->start;tmp->next != current;tmp = tmp->next);
+                tmp->next = current->next;
+                current->next = nullptr;
+                delete(current);
+                tmp->next=nullptr;
+                delete (tmp);
+                size--;
+            }
+
+        }
+    }
 }
 /*
 void List::showList(){

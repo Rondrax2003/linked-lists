@@ -16,12 +16,14 @@ class List{
 
         int size = 0;
         Node* start;
+        Node* end;
     public:
         List();
         ~List();
         int getsize();
         void InsertNode(int value);
         void InsertOrdened(int value);
+        void deleteNode(int value);
         void showList();
 };
 
