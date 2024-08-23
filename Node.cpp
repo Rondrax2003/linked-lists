@@ -37,25 +37,27 @@ void List::InsertNode(int value){
 }
 
 void List::InsertOrdened(int value){
-    Node* current = start;
-    if(this->start == nullptr){
+
+    if(this->start == nullptr || value < this->start->data){
         InsertNode(value);
-    }else if(start->data > value){
+    }else if(this->end->data< value){
         Node* newNode = new Node(value);
-        if(newNode->data < current->next->data){
+        this->end->next = newNode;
+        this->end = newNode;
+        size++;
+    }else{
+        Node* current = this->start;
+        if(current->next->data > value){
+            Node* newNode = new Node(value);
             newNode->next = current->next;
             current->next = newNode;
-            current = nullptr;
-            delete current;
-            cout<< newNode->data <<endl;
-            this->size++;
-        }else if(end->next == newNode){
-            end = newNode;
             size++;
-            cout<< newNode->data <<endl;
+            current = nullptr;
+            delete (current);
+        }else{
+            current = current->next;
         }
     }
-
 }
 
 int List::getsize(){
@@ -69,28 +71,39 @@ void List::deleteNode(int value){
     }
     else{
         Node* current;
-        for(current = this->start ;current->next != nullptr;current=current->next){
-            if(current == this->start){
+        if(current == this->start){
                 this->start->next= this->start;
                 current->next = nullptr;
                 delete(current);
                 size--;
-            }else if(current->next == this->end){
-                this->end = current;
-                current = current->next;
-                current->next = nullptr;
-                delete (current);
-            }else if(current->data == value){
-                Node* tmp;
-                for(tmp=this->start;tmp->next != current;tmp = tmp->next);
-                tmp->next = current->next;
-                current->next = nullptr;
-                delete(current);
-                tmp->next=nullptr;
-                delete (tmp);
-                size--;
+            }else{
+            for(current = this->start ;current->data != value;current=current->next){
+                if(current == this->start){
+                    this->start = this->start->next;
+                    current->next= nullptr;
+                    delete (current);
+                    size--;
+                }else if (current == this->end){
+                    Node* tmp;
+                    for(tmp = this->start; tmp->next != current; tmp=tmp->next);
+                    this->end=tmp;
+                    this->end->next = nullptr;
+                    delete(current);
+                    tmp=nullptr;
+                    delete(tmp);
+                    size--;
+                }else{
+                    Node* tmp;
+                    for(tmp = this->start; tmp->next != current; tmp=tmp->next);
+                    tmp->next = current->next;
+                    current->next = nullptr;
+                    delete(current);
+                    tmp=nullptr;
+                    delete(tmp);
+                    size--;
+                }
+                
             }
-
         }
     }
 }
