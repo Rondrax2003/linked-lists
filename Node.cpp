@@ -27,18 +27,18 @@ void List::InsertNode(int value){
         this->start = newNode;
         this->end = newNode;
         size++;
-        cout<< newNode->data <<endl;
+  
     }else{
         newNode->next = this->start;
         this->start = newNode;
         size++;
-        cout<< newNode->data <<endl;
     }
 }
 
-void List::InsertOrdened(int value){
-
-    if(this->start == nullptr || value < this->start->data){
+void List::InsertOrdened(int value)
+{
+    if(this->start == nullptr || value < this->start->data)
+    {
         InsertNode(value);
     }else if(this->end->data< value){
         Node* newNode = new Node(value);
@@ -46,73 +46,74 @@ void List::InsertOrdened(int value){
         this->end = newNode;
         size++;
     }else{
-        Node* current = this->start;
-        if(current->next->data > value){
+        Node* current;
+        for(current= this->start;current->next->data > value; current = current->next)
+        {
             Node* newNode = new Node(value);
             newNode->next = current->next;
             current->next = newNode;
             size++;
-            current = nullptr;
-            delete (current);
-        }else{
-            current = current->next;
         }
     }
 }
 
+
 int List::getsize(){
     return this->size;
-
 }
 
 void List::deleteNode(int value){
     if(this->start == nullptr){
         cout<<"void list"<<endl;
     }
-    else{
+    else
+    {
         Node* current;
-        if(current == this->start){
+        for(current = this->start ;current->data != value;current=current->next)
+        {
+            if (current == this->start && this->start->data == value)
+            {
                 this->start->next= this->start;
                 current->next = nullptr;
+                cout<< "the"<< current->data << "has deleted"<<endl;
                 delete(current);
                 size--;
-            }else{
-            for(current = this->start ;current->data != value;current=current->next){
-                if(current == this->start){
-                    this->start = this->start->next;
-                    current->next= nullptr;
-                    delete (current);
-                    size--;
-                }else if (current == this->end){
-                    Node* tmp;
-                    for(tmp = this->start; tmp->next != current; tmp=tmp->next);
-                    this->end=tmp;
-                    this->end->next = nullptr;
-                    delete(current);
-                    tmp=nullptr;
-                    delete(tmp);
-                    size--;
-                }else{
-                    Node* tmp;
-                    for(tmp = this->start; tmp->next != current; tmp=tmp->next);
-                    tmp->next = current->next;
-                    current->next = nullptr;
-                    delete(current);
-                    tmp=nullptr;
-                    delete(tmp);
-                    size--;
-                }
-                
+            }else if(current == this->end && this->end->data == value)
+            {
+                Node* tmp;
+                for(tmp = this->start; tmp->next != this->end; tmp=tmp->next);
+                this->end = tmp;
+                this->end->next = nullptr;
+                cout<< "the"<< current->data << "has deleted"<<endl;
+                delete(current);
+                tmp=nullptr;
+                delete(tmp);
+                size--;
+            }else if(current->data == value)
+            {
+                Node* tmp;
+                for(tmp = this->start; tmp->next != current; tmp=tmp->next);
+                tmp->next = current->next;
+                current->next = nullptr;
+                cout<< "the"<< current->data << "has deleted"<<endl;
+                delete(current);
+                tmp=nullptr;
+                delete(tmp);
+                size--;
+            }else if(current == this->end && current->data != value)
+            {
+                cout<< "the value value "<< value <<" isn't not found in the list"<<endl;
+                current = nullptr;
+                delete (current);
             }
         }
     }
 }
-/*
+
 void List::showList(){
-    Node* printer = this->start;
-    while (printer != nullptr)
+    Node* printer;
+    for(printer = this->start;printer != nullptr; printer = printer->next)
     {
-        cout<<this->data<<",";
+        cout<< printer->data<<endl;
     }
-    
-}*/
+}
