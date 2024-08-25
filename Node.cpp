@@ -46,13 +46,17 @@ void List::InsertOrdened(int value)
         this->end = newNode;
         size++;
     }else{
-        Node* current;
-        for(current= this->start;current->next->data > value; current = current->next)
+        Node* current = this->start;
+        while(current->next->data > value)
         {
+            if(current->next->data > value){
             Node* newNode = new Node(value);
             newNode->next = current->next;
             current->next = newNode;
             size++;
+            }else{
+                current= current->next;
+            }
         }
     }
 }
