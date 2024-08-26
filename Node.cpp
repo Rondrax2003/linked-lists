@@ -69,49 +69,38 @@ int List::getsize(){
     return this->size;
 }
 
-void List::deleteNode(int value){
-    if(this->start == nullptr){
-        cout<<"void list"<<endl;
-    }
-    else
+void List::deleteNode(int value)
+{
+    Node* current = this->start;
+    if(this->start->data == value)
     {
-        Node* current = this->start;
-        Node* tmp= nullptr;
-        while(current->next != nullptr)
-        {
-            if (this->start->data == value && current == this->start)//if the value is in start
-            {
-                this->start= this->start->next;
-                current->next = nullptr;
-                cout<< "the"<< current->data << "has deleted"<<endl;
-                delete current;
-                size--;
-            }else if(current->next == this->end && current->next->data == value)// if the value is in the end
-            {
-                tmp = this->end;
+        Node* tmp = this->start;
+        this->start = this->start->next;
+        tmp->next = nullptr;
+        delete tmp;
+        size --;
+    }else{
+        while(current->next != nullptr){
+            if(current->next == this->end && current->next->data == value){
+                Node* tmp = this->end;
                 this->end = current;
                 this->end->next = nullptr;
-                cout<< "the "<< tmp->data << " has deleted"<<endl;
+                delete tmp;
+                size --;
+            }
+            else if(current->next->data == value){
+                Node* tmp = current->next;
+                current->next = tmp->next;
                 delete tmp;
                 size--;
-            }else if(current->next->data == value) //if the value isn't at start or at the end;
-            {
-                tmp = current->next;
-                current->next = tmp->next;
-                tmp->next = nullptr;
-                cout<< "the "<< tmp->data << " has deleted"<<endl;
-                delete tmp;
-                size--;  
-            }else{
-                current=current->next;
-                if(current->next == nullptr)
-                {
-                cout <<"this value not foun in the list"<<endl;
-                delete(current);
+            }
+            else{
+                current = current->next;
+                if(current->next == nullptr){
+                    cout <<"this value not found"<<endl;
                 }
             }
         }
-
     }
 }
 
@@ -125,4 +114,50 @@ void List::showList(){
 }
 /*note block
 this section will ne sed for registrer codes can be useful:
+
+void List::deleteNode(int value){
+    if(this->start == nullptr){
+        cout<<"void list"<<endl;
+    }
+    else
+    {
+        Node* current = this->start;
+        Node* tmp= nullptr;
+        while(current->next != nullptr)
+        {
+            if (this->start->data == value && current == this->start)//if the value is in start
+            {
+                this->start = this->start->next;
+                current->next = nullptr;
+                cout<< "the"<< current->data << "has deleted"<<endl;
+                delete (current);
+                size--;
+            }else if(current->next == this->end && current->next->data == value)// if the value is in the end
+            {
+                tmp = this->end;
+                this->end = current;
+                this->end->next = nullptr;
+                cout<< "the "<< tmp->data << " has deleted"<<endl;
+                delete (tmp);
+                size--;
+            }else if(current->next->data == value) //if the value isn't at start or at the end;
+            {
+                tmp = current->next;
+                current->next = tmp->next;
+                tmp->next = nullptr;
+                cout<< "the "<< tmp->data << " has deleted"<<endl;
+                delete (tmp);
+                size--;  
+            }else{
+                current=current->next;
+                if(current->next == nullptr)
+                {
+                cout <<"this value not foun in the list"<<endl;
+                delete(current);
+                }
+            }
+        }
+
+    }
+}
 */
