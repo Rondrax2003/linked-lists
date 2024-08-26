@@ -13,8 +13,7 @@ int main(){
     Phone.showList();
     Phone.deleteNode(28);
     Phone.showList();
-    Phone.getsize();
-    Phone.~List();
+    cout<<"size:"<< Phone.getsize() <<endl;
 
     return 0;
 }
