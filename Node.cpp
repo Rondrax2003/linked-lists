@@ -75,47 +75,46 @@ void List::deleteNode(int value){
     }
     else
     {
-        Node* current;
-        for(current = this->start ;current->data != value;current=current->next)
+        Node* current = this->start;
+        Node* tmp= nullptr;
+        while(current->next != nullptr)
         {
-            if (current == this->start && this->start->data == value)
+            if (this->start->data == value && current == this->start)//if the value is in start
             {
-                this->start->next= this->start;
+                this->start= this->start->next;
                 current->next = nullptr;
                 cout<< "the"<< current->data << "has deleted"<<endl;
-                delete(current);
+                delete current;
                 size--;
-            }else if(current == this->end && this->end->data == value)
+            }else if(current->next == this->end && current->next->data == value)// if the value is in the end
             {
-                Node* tmp;
-                for(tmp = this->start; tmp->next != this->end; tmp=tmp->next);
-                this->end = tmp;
+                tmp = this->end;
+                this->end = current;
                 this->end->next = nullptr;
-                cout<< "the"<< current->data << "has deleted"<<endl;
-                delete(current);
-                tmp=nullptr;
-                delete(tmp);
+                cout<< "the "<< tmp->data << " has deleted"<<endl;
+                delete tmp;
                 size--;
-            }else if(current->data == value)
+            }else if(current->next->data == value) //if the value isn't at start or at the end;
             {
-                Node* tmp;
-                for(tmp = this->start; tmp->next != current; tmp=tmp->next);
-                tmp->next = current->next;
-                current->next = nullptr;
-                cout<< "the"<< current->data << "has deleted"<<endl;
+                tmp = current->next;
+                current->next = tmp->next;
+                tmp->next = nullptr;
+                cout<< "the "<< tmp->data << " has deleted"<<endl;
+                delete tmp;
+                size--;  
+            }else{
+                current=current->next;
+                if(current->next == nullptr)
+                {
+                cout <<"this value not foun in the list"<<endl;
                 delete(current);
-                tmp=nullptr;
-                delete(tmp);
-                size--;
-            }else if(current == this->end && current->data != value)
-            {
-                cout<< "the value value "<< value <<" isn't not found in the list"<<endl;
-                current = nullptr;
-                delete (current);
+                }
             }
         }
+
     }
 }
+
 
 void List::showList(){
     Node* printer;
@@ -124,3 +123,6 @@ void List::showList(){
         cout<< printer->data<<endl;
     }
 }
+/*note block
+this section will ne sed for registrer codes can be useful:
+*/
